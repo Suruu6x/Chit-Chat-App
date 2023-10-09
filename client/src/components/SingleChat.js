@@ -6,8 +6,11 @@ import {
   FormControl,
   IconButton,
   Input,
+  InputGroup,
+  InputRightElement,
   Spinner,
   Text,
+  useBreakpointValue,
   useToast,
 } from "@chakra-ui/react";
 import { BsArrowLeftShort } from "react-icons/bs";
@@ -18,6 +21,7 @@ import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
 import Lottie from "lottie-react";
 import animationData from "../animations/typing.json";
+import { BsFillSendFill } from "react-icons/bs";
 
 // Connection of Socket.io (Client side)
 import io from "socket.io-client";
@@ -103,8 +107,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   });
 
   // Function for sending messages
-  const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
+  const sendMessage = async () => {
+    if (newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -162,6 +166,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     }, timerLength);
   };
+
+  const ismdOrlgScreen = useBreakpointValue({
+    base: false,
+    md: true,
+    lg: true,
+  });
 
   return (
     <>
@@ -225,7 +235,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </div>
             )}
 
-            <FormControl onKeyDown={sendMessage} isRequired mt={3}>
+            <FormControl isRequired mt={3}>
               {isTyping ? (
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <Lottie
@@ -244,14 +254,32 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
-
-              <Input
-                variant="filled"
-                bg="#E0E0E0"
-                placeholder="Enter a message.."
-                onChange={typingHandler}
-                value={newMessage}
-              />
+              <InputGroup>
+                <Input
+                  variant="filled"
+                  bg="#E0E0E0"
+                  placeholder="Enter a message.."
+                  onChange={typingHandler}
+                  value={newMessage}
+                  // Function to handle sending a message when Enter key is pressed
+                  onKeyDown={(e) => {
+                    if (ismdOrlgScreen && e.key === "Enter") {
+                      e.preventDefault(); // Prevent the default behavior (line break)
+                      sendMessage(); // Send the message
+                    }
+                  }}
+                />
+                <InputRightElement>
+                  <IconButton
+                    bg="none"
+                    _hover={{ bg: "none" }}
+                    color="#0067b1"
+                    onClick={sendMessage}
+                  >
+                    <BsFillSendFill size={20} />
+                  </IconButton>
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
           </Box>
         </>

@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { GrFormClose } from "react-icons/gr";
+import { MdOutlineClose } from "react-icons/md";
 
 const UserBadgeItem = ({ user, handleFunction }) => {
   return (
@@ -14,14 +14,20 @@ const UserBadgeItem = ({ user, handleFunction }) => {
       mb={2}
       variant="solid"
       fontSize={12}
-      colorScheme="purple"
-      backgroundColor="purple"
+      backgroundColor="#38B2AC"
       color="white"
       cursor="pointer"
       onClick={handleFunction}
     >
       {user.name}
-      <GrFormClose pl={1} color="white" />
+      <MdOutlineClose
+        size={15}
+        style={{
+          marginLeft: "2px",
+          marginRight: "-5px",
+          marginBottom: "-1px",
+        }}
+      />
     </Box>
   );
 };

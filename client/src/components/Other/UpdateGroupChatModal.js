@@ -219,13 +219,18 @@ const UpdateGroupChatModal = ({
         onClick={onOpen}
       />
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        size={{ base: "sm", md: "lg" }}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
             display="flex"
             justifyContent="center"
-            fontSize="35px"
+            fontSize={{ base: "25px", md: "35px" }}
             fontFamily="Work sans"
           >
             {selectedChat.chatname}
@@ -251,7 +256,7 @@ const UpdateGroupChatModal = ({
               />
               <Button
                 variant="solid"
-                colorScheme="teal"
+                colorScheme="linkedin"
                 ml={1}
                 isLoading={renameLoading}
                 onClick={handleRename}
