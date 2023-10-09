@@ -1,10 +1,5 @@
 export const getSender = (loggedUser, users) => {
-  // Check if users array is empty or undefined
-  if (!users || users.length === 0) {
-    window.location.reload();
-  } else {
-    return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
-  }
+  return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
 
 export const getSenderFull = (loggedUser, users) => {
