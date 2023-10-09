@@ -72,7 +72,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  console.log(messages);
   // useEffect 1
   useEffect(() => {
     socket = io(ENDPOINT);
